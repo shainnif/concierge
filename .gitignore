@@ -9,3 +9,8 @@ pubspec.lock
 doc/api/
 
 .idea/
+/firebase-debug.log
+firebase-debug.log
+storage.rules
+/functions/node_modules/
+/functions/package-lock.json

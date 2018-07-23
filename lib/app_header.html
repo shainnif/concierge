@@ -4,14 +4,14 @@
 </div>
 
 <div class="horiz">
-  <div id="sign-in" class="horiz">
+  <div id="sign-in" *ngIf="dbService.user == null" class="horiz">
     <div id="google-icon" class="icon"></div>
-    <material-button>Google Sign In</material-button>
+    <material-button (trigger)="dbService.signIn()">Google Sign In</material-button>
   </div>
 
-  <div id="sign-out" class="horiz">
-    <img class="icon">
-    <div id="user-name"></div>
-    <material-button>Sign Out</material-button>
+  <div id="sign-out" *ngIf="dbService.user != null" class="horiz">
+    <img class="icon" [src]="dbService.user?.photoURL">
+    <div id="user-name">{{dbService.user?.displayName}}</div>
+    <material-button (trigger)="dbService.signOut()">Sign Out</material-button>
   </div>
 </div>

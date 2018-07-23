@@ -18,7 +18,7 @@ transformers:
 - angular:
     entry_points:
       - web/main.dart
-- dart_to_js_script_rewriter
+      - dart_to_js_script_rewriter
 
 web:
   compiler:

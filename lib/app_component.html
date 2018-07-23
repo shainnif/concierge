@@ -1,16 +1,29 @@
 <div class="fit layout vertical">
   <app-header class="layout horizontal center justified"></app-header>
 
-  <div id="chat" class="card flex layout vertical" style="overflow-y: hidden;">
-    <div class="msg-container flex layout vertical" style="overflow-y: auto;">
+  <div id="chat" [hidden]="dbService.user == null" class="card flex layout vertical" style="overflow-y: hidden;">
+    <div class="msg-container flex layout vertical" style="overflow-y: auto;" vuScrollDown>
+      <div *ngFor="let msg of dbService.messages"
+           class="message layout horizontal">
+        <img [src]="msg.photoURL" class="icon">
+        <div>
+          <div class="name">{{msg.name}}</div>
+          <div *ngIf="msg.imageURL == null">{{msg.text}}</div>
+          <div *ngIf="msg.imageURL != null">
+            <a [href]="msg.imageURL" target="_blank">
+              <img [src]="msg.imageURL" class="message-image">
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div id="input-container" class="layout horizontal center">
-      <material-input class="flex" floatingLabel label="Message..."></material-input>
-      <material-button>Send</material-button>
+      <material-input [(ngModel)]="inputText" (keyup.enter)="sendTextMessage()" vuHoldFocus></material-input>
+      <material-button (trigger)="sendTextMessage()">Send</material-button>
 
-      <input #mediaCapture type="file" accept="image/*,capture=camera">
-      <material-button><i class="material-icons">image</i></material-button>
+      <input #mediaCapture type="file" accept="image/*,capture=camera" (change)="sendImageMessage(mediaCapture.files)">
+      <material-button (trigger)="mediaCapture.click()" ><i class="material-icons">image</i></material-button>
     </div>
   </div>
 </div>
